@@ -1,0 +1,30 @@
+
+<p><?php print_string('confirm_delete', 'auth_openid'); ?></p>
+
+<ul>
+    <?php
+    
+    $hidden_fields = '';
+    
+    foreach ($delete_urls as $url_id) {
+        $url_id = intval($url_id);
+        echo '<li>',format_string(get_field('openid_urls', 'url', 'id', $url_id, 'userid', $USER->id)),'</li>';
+        $hidden_fields .= '<input type="hidden" name="delete_urls[]" value="'.s($url_id).'" />';
+    }
+    
+    ?>
+</ul>
+
+<p><?php print_string('confirm_sure', 'auth_openid'); ?></p>
+
+<div class="continuebutton">
+    <form action="<?php echo $CFG->wwwroot; ?>/auth/openid/actions.php" method="post">
+        <input type="hidden" name="openid_url" value="<?php p($url); ?>" />
+        <?php echo $hidden_fields; ?>
+        <input type="hidden" name="openid_action" value="delete" />
+        <input type="hidden" name="sesskey" value="<?php echo sesskey(); ?>" />
+        <input type="submit" name="cancel_action" value="<?php print_string('no'); ?>" />
+        <input type="submit" name="confirm_action" value="<?php print_string('yes'); ?>" />
+    </form>
+</div>
+

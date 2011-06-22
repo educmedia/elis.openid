@@ -1,0 +1,34 @@
+      <div class="subcontent loginsub">
+        <form name="GoogleOpenID_form" action="<?php p($endpoint); ?>" method="post" id="openidlogin">
+              <div class="desc">
+          <?php
+
+          if ($user_loggedin) {
+            if ($user_is_openid && $allow_append) {
+                echo '<input type="hidden" name="openid_action" value="append" />';
+                print_string('append_text', 'auth_openid');
+            } elseif (!$user_is_openid && $allow_change) {
+                echo '<input type="hidden" name="openid_action" value="change" />';
+                print_string('change_text', 'auth_openid');
+            }
+          } else {
+            print_string('openid_text', 'auth_openid');
+          }
+
+          ?>
+                  </div>
+          <div style="padding: 1em;">
+            <input type="hidden" id="openid_url" name="openid_url" value="https://www.google.com/accounts/o8/id"/>
+            <input type="image" onclick="document.GoogleOpenID_form.submit();" src="<?php echo "{$CFG->wwwroot}/auth/openid/custom/images/google_big_login_button.jpg"; ?>" height="50%" width="50%"/>
+          </div>
+                </form>
+            <div class="desc"><small>
+          <?php
+          if ($login_all) {
+              if (!$user_loggedin) {
+                print_string('openid_note', 'auth_openid');
+              } else {
+                print_note_user();
+              }
+          }
+          ?></small></div>

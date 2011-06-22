@@ -1,0 +1,105 @@
+
+<tr>
+   <td colspan="2">
+        <h4><?php print_string('auth_openid_user_settings', 'auth_openid') ?> </h4>
+   </td>
+</tr>
+<tr>
+    <td colspan="2">
+		<?php print_string('auth_openid_user_description','auth_openid') ?>
+    </td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_allow_account_change" id="auth_openid_allow_account_change" value="true"<?php if ($this->config->auth_openid_allow_account_change=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_allow_account_change"><?php print_string('auth_openid_allow_account_change_key','auth_openid') ?></label>
+	</td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_allow_muliple" id="auth_openid_allow_muliple" value="true"<?php if ($this->config->auth_openid_allow_muliple=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_allow_muliple"><?php print_string('auth_openid_allow_muliple_key','auth_openid') ?></label>
+	</td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_limit_login" id="auth_openid_limit_login" value="true"<?php if ($this->config->auth_openid_limit_login=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_limit_login"><?php print_string('auth_openid_limit_login','auth_openid', $CFG->wwwroot .'/auth/openid/login.php?login=all'.(!empty($this->config->auth_openid_custom_login) ? '&openid=1' : ''));
+?></label>
+	</td>
+</tr>
+
+<tr valign="bottom" class="required">
+    <td align="right" nowrap><label for="auth_openid_custom_login"><?php print_string('auth_openid_custom_login','auth_openid') ?></label></td>
+    <td align="left">
+                <input id="auth_openid_custom_login" name="auth_openid_custom_login" type="text" value="<?php p($this->config->auth_openid_custom_login); ?>" size="40" />
+    </td>
+</tr>
+<tr valign="top" class="required">
+<td></td><td align="left">
+                <small><?php print_string('auth_openid_custom_login_config','auth_openid',
+"{$CFG->wwwroot}/auth/openid/login.php?openid=1") ?></small>
+    </td>
+</tr>
+
+
+<tr valign="bottom" class="required">
+    <td align="right" nowrap><label for="auth_openid_google_apps_domain"><?php print_string('auth_openid_google_apps_domain','auth_openid') ?></label></td>
+    <td align="left">
+                <input id="auth_openid_google_apps_domain" name="auth_openid_google_apps_domain" type="text" value="<?php p($this->config->auth_openid_google_apps_domain); ?>" size="40" />
+    </td>
+</tr>
+<tr valign="top" class="required">
+<td></td><td align="left">
+                <small><?php print_string('auth_openid_google_apps_config','auth_openid') ?></small>
+    </td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_confirm_switch" id="auth_openid_confirm_switch" value="true"<?php if ($this->config->auth_openid_confirm_switch=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_confirm_switch"><?php print_string('auth_openid_confirm_switch','auth_openid'); ?></label>
+	</td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_email_on_change" id="auth_openid_email_on_change" value="true"<?php if ($this->config->auth_openid_email_on_change=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_email_on_change"><?php print_string('auth_openid_email_on_change','auth_openid'); ?></label>
+	</td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+		<input type="checkbox" name="auth_openid_create_account" id="auth_openid_create_account" value="true"<?php if ($this->config->auth_openid_create_account=='true') { echo ' checked="checked"'; } ?> />
+		<label for="auth_openid_create_account"><?php print_string('auth_openid_create_account','auth_openid') ?></label>
+	</td>
+</tr>
+
+<tr valign="bottom" class="required">
+    <td align="right" nowrap><label for="auth_openid_match_fields"><?php print_string('auth_openid_match_fields','auth_openid') ?></label></td>
+    <td align="left">
+                <input id="auth_openid_match_fields" name="auth_openid_match_fields" type="text" value="<?php p($this->config->auth_openid_match_fields); ?>" size="40" />
+    </td>
+</tr>
+<tr valign="top" class="required">
+<td></td><td align="left">
+                <small><?php print_string('auth_openid_match_fields_config','auth_openid'); ?></small>
+    </td>
+</tr>
+
+<tr valign="top" class="required">
+	<td colspan="2" style="padding:20px 30px;">
+                <?php print_string('openid_non_whitelisted_status','auth_openid') ?>&nbsp;
+		<select name="openid_non_whitelisted_status" id="openid_non_whitelisted_status">
+                <option value="0" <?php if ($this->config->openid_non_whitelisted_status == 0) { echo 'selected'; } echo '>'.get_string('confirm' ,'auth_openid'); ?></option>
+                <option value="1" <?php if ($this->config->openid_non_whitelisted_status == 1) { echo 'selected'; } echo '>'.get_string('deny', 'auth_openid'); ?></option>
+                <option value="2" <?php if ($this->config->openid_non_whitelisted_status == 2) { echo 'selected'; } echo '>'.get_string('allow' , 'auth_openid'); ?></option>
+               </select>
+		<br /><?php print_string('openid_non_whitelisted_info','auth_openid'); ?>
+	</td>
+</tr>
+

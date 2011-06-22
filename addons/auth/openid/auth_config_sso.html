@@ -1,0 +1,28 @@
+<table cellspacing="0" cellpadding="10" border="0">
+
+<tr>
+   <td colspan="2">
+        <h4><?php print_string('auth_openid_sso_settings', 'auth_openid') ?> </h4>
+   </td>
+</tr>
+<tr>
+    <td colspan="2">
+		<?php print_string('auth_openid_sso_description','auth_openid') ?>
+    </td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="openid_sso_url"><?php print_string('auth_openid_sso_op_url_key','auth_openid') ?></label></td>
+    <td>
+		<input id="openid_sso_url" name="openid_sso_url" type="text" value="<?php p($this->config->openid_sso_url); ?>" size="40" />
+    </td>
+</tr>
+<tr valign="top" class="required">
+    <td colspan="2">
+		<small><?php print_string('auth_openid_sso_op_url','auth_openid') ?></small>
+    </td>
+</tr>
+
+<?php include dirname(__FILE__).'/auth_config_sreg.html'; ?>
+
+</table>

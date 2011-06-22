@@ -1,0 +1,22 @@
+
+<div class="continuebutton">
+    <p><?php print_string('fallback_text', 'auth_openid') ?></p>
+    
+    <form action="<?php echo $CFG->wwwroot; ?>/auth/openid/fallback.php" method="post" id="fallback" name="fallback" onsubmit="if (document.fallback.openid_url.value == '') return false;" >
+        <input type="hidden" name="openid_action" value="send_message" />
+        <input type="hidden" name="sesskey" value="<?php echo sesskey(); ?>" />
+        <input class="openid_login" type="text" name="openid_url" value="" size="18" />
+        <input type="submit" name="confirm_action" value="<?php print_string('continue'); ?>" />
+    </form>
+</div>
+
+<style type="text/css">
+input.openid_login {
+    background: url(<?php echo $CFG->wwwroot; ?>/auth/openid/icon.gif) no-repeat;
+    background-color: #fff;
+    background-position: 0 50%;
+    color: #000;
+    padding-left: 18px;
+}
+</style>
+

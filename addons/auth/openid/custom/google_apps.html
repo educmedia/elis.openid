@@ -1,0 +1,38 @@
+<?php $action = ($user_loggedin && $user_is_openid && $allow_append)
+                ? 'append' : 'change';
+?>
+    <h2><?php print_string('openid_gapps_enabled', 'auth_openid') ?></h2>
+      <div class="subcontent loginsub">
+        <form action="<?php p($endpoint); ?>" method="post" id="openidlogin" name="openidlogin">
+          <div class="desc">
+          <?php
+          if ($user_loggedin) {
+            if ($user_is_openid && $allow_append) {
+                echo '<input type="hidden" name="openid_action" value="append" />';
+                print_string('gapps_append_text', 'auth_openid');
+            } elseif (!$user_is_openid && $allow_change) {
+                echo '<input type="hidden" name="openid_action" value="change" />';
+                print_string('gapps_change_text', 'auth_openid');
+            }
+          } else {
+            print_string('openid_gapps_text', 'auth_openid');
+          }
+          ?>
+          </div>
+          <div class="google_apps_login" id="google_apps_login">
+              <input type="hidden" name="openid_action"
+                  value="<?php p($action) ?>" />
+              <input type="hidden" name="openid_url"
+                  value="<?php p($config->auth_openid_google_apps_domain) ?>" />
+              <input type="submit" class="google_apps_button"
+                  id = "google_apps_button"
+                  value="<?php print_string('google_apps_button',
+                                            'auth_openid'); ?>" />
+          </div>
+          <?php
+          if (!$user_loggedin) {
+          ?>
+            <a href="<?php echo $CFG->wwwroot; ?>/auth/openid/fallback.php"><small><?php print_string('gapps_offline', 'auth_openid'); ?></small></a>
+          <?php
+          } ?>
+        </form>

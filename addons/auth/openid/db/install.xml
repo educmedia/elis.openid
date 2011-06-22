@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/openid/db" VERSION="20070806" COMMENT="XMLDB file for Moodle mod/openid">
+  <TABLES>
+    <TABLE NAME="openid_servers" NEXT="openid_urls" COMMENT="OpenID servers">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="server"/>
+        <FIELD NAME="server" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" DEFAULT="NULL" ENUM="false" PREVIOUS="id" NEXT="listtype"/>
+        <FIELD NAME="listtype" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" ENUM="false" PREVIOUS="server"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for openid"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="openid_urls" PREVIOUS="openid_servers" COMMENT="OpenID additional urls">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" ENUM="false" DEFAULT="0" PREVIOUS="id" NEXT="url"/>
+		<FIELD NAME="url" TYPE="text" LENGTH="small" NOTNULL="false" ENUM="false" SEQUENCE="false" PREVIOUS="userid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for openid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+	</TABLE>
+  </TABLES>
+</XMLDB>

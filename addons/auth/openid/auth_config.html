@@ -1,0 +1,35 @@
+<?php
+
+$page = optional_param('page', '');
+
+if ($page == 'sreg') {
+    $file = '/auth_config_sreg.html';
+} elseif ($page == 'servers') {
+    $file = '/auth_config_servers.html';
+} else {
+    $page = 'users';
+    $file = '/auth_config_users.html';
+}
+
+$tabs = array();
+
+$tabs[] = new tabobject('users', $CFG->wwwroot.'/admin/auth_config.php?auth=openid&amp;page=users', get_string('openid_tab_users', 'auth_openid'));
+
+/**
+ * Disable SREG tab page since Google, Yahoo ... use AX (Attribute Exchange)
+ *
+$tabs[] = new tabobject('sreg', $CFG->wwwroot.'/admin/auth_config.php?auth=openid&amp;page=sreg', get_string('openid_tab_sreg', 'auth_openid'));
+ *
+ **/
+
+$tabs[] = new tabobject('servers', $CFG->wwwroot.'/admin/auth_config.php?auth=openid&amp;page=servers', get_string('openid_tab_servers', 'auth_openid'));
+
+print_tabs(array($tabs), $page);
+
+?>
+<input type="hidden" name="page" value="<?php echo $page; ?>" />
+
+<table cellspacing="0" cellpadding="10" border="0">
+    <?php include dirname(__FILE__).$file; ?>
+</table>
+

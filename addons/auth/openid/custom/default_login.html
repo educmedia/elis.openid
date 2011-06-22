@@ -1,0 +1,47 @@
+    <h2><?php print_string('openid_enabled', 'auth_openid') ?></h2>
+      <div class="subcontent loginsub">
+        <form action="<?php p($endpoint); ?>" method="post" id="openidlogin" name="openidlogin" onsubmit="if (document.openidlogin.openid_url.value == '') return false;">
+              <div class="desc">
+          <?php
+
+          if ($user_loggedin) {
+            if ($user_is_openid && $allow_append) {
+                echo '<input type="hidden" name="openid_action" value="append" />';
+                print_string('append_text', 'auth_openid');
+            } elseif (!$user_is_openid && $allow_change) {
+                echo '<input type="hidden" name="openid_action" value="change" />';
+                print_string('change_text', 'auth_openid');
+            }
+          } else {
+            /**
+             * NOTE: for new custom login file(s) change
+             *       'openid_default_text' to 'openid_text'
+             *       on line below.
+             */
+            print_string('openid_default_text', 'auth_openid');
+          }
+
+          ?>
+                  </div>
+          <div style="padding: 1em;">
+            <input type="text" id="openid_url" name="openid_url" value="" style="background-image:url(<?php echo $CFG->wwwroot; ?>/auth/openid/icon.gif); background-repeat:no-repeat; background-position: 0 50%; padding:3px; padding-left:18px;" />
+            <input type="submit" value="Login" />
+            <a href="http://openid.net/"><small><?php print_string('whats_this', 'auth_openid'); ?></small></a>
+          <?php
+          if (!$user_loggedin) {
+          ?>
+            <br /><a href="<?php echo $CFG->wwwroot; ?>/auth/openid/fallback.php"><small><?php print_string('provider_offline', 'auth_openid'); ?></small></a>
+          <?php
+          } ?>
+          </div>
+                </form>
+            <div class="desc"><small>
+          <?php
+          if ($login_all) {
+              if (!$user_loggedin) {
+                print_string('openid_note', 'auth_openid');
+              } else {
+                print_note_user();
+              }
+          }
+          ?></small></div>

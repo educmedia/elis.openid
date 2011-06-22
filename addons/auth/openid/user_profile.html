@@ -1,0 +1,63 @@
+
+<h3 class="main"><?php echo get_string('openid_manage', 'auth_openid'); ?></h3>
+
+<table width="80%" class="userinfobox" summary="">
+    <?php
+    
+    $config = get_config('auth/openid');
+    $allow_append = ($config->auth_openid_allow_muliple=='true');
+    
+    if ($allow_append) { ?>
+    <tr>
+        <td class="content">
+            <form name="openid_form" action="<?php echo $CFG->wwwroot; ?>/auth/openid/actions.php" method="post" onsubmit="if (document.openid_form.openid_url.value == '') return false;" >
+                <input type="hidden" name="openid_action" value="append" />
+                <div>
+                    <input type="text" id="openid_url" name="openid_url" value="" style="background-image:url(<?php echo $CFG->wwwroot; ?>/auth/openid/icon.gif); background-repeat:no-repeat; background-position: 0 50%; padding:3px; padding-left:18px;" size="30" />
+                    <input type="submit" value="<?php print_string('add_openid', 'auth_openid'); ?>" />
+                </div>
+            </form>
+        </td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td class="content">
+            <form action="<?php echo $CFG->wwwroot; ?>/auth/openid/actions.php" method="post">
+                <input type="hidden" name="openid_action" value="delete" />
+                <ul>
+                    <?php
+                    
+                    $records=get_records('openid_urls', 'userid', $USER->id);
+                    $rcount = sizeof($records);
+                    
+                    if ($rcount > 1) {
+                        $str = '<li><input type="checkbox" name="delete_urls[]" id="delete_%d" value="%d" /><label for="delete_%d">%s</label></li>';
+                        
+                        foreach ($records as $record) {
+                            printf(
+                                $str,
+                                $record->id,
+                                $record->id,
+                                $record->id,
+                                s($record->url)
+                            );
+                        }
+                    }
+                    
+                    elseif ($rcount == 1) {
+                        $record = array_pop($records);
+                        echo '<li>',$record->url,'</li>';
+                    }
+                    
+                    ?>
+                </ul>
+                <?php if ($rcount > 1) { ?>
+                    <input type="submit" value="<?php print_string('delete_selected', 'auth_openid'); ?>" />
+                <?php } ?>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br />
+

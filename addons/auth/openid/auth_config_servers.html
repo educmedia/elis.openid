@@ -1,0 +1,68 @@
+
+<tr>
+   <td>
+        <h4><?php print_string('auth_openid_servers_settings', 'auth_openid') ?> </h4>
+   </td>
+</tr>
+<tr>
+    <td>
+		<?php print_string('auth_openid_servers_description','auth_openid') ?>
+    </td>
+</tr>
+
+<tr valign="top">
+    <td>
+		<input id="openid_add_server" name="openid_add_server" type="text" value="" size="40" />
+        <select name="openid_add_listtype">
+            <option value="<?php echo OPENID_GREYLIST; ?>">Confirm</option>
+            <option value="<?php echo OPENID_BLACKLIST; ?>">Deny</option>
+            <option value="<?php echo OPENID_WHITELIST; ?>">Allow</option>
+        </select>
+        <input type="submit" name="add_server" value="Add" />
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <table class="openid_servers" cellspacing="0" cellpadding="10" border="1" width="100%">
+            <tr class="openid_servers">
+                <th class="openid_servers">Server</th>
+                <th class="openid_servers">Confirm</th>
+                <th class="openid_servers">Deny</th>
+                <th class="openid_servers">Allow</th>
+                <th class="openid_servers">Delete</th>
+            </tr>
+            <?php
+            
+            $str = '
+            <tr class="openid_servers">
+                <td class="openid_servers" align="center">%s</td>
+                <td class="openid_servers" align="center"><input type="radio" name="servers[%d]" value="'.OPENID_GREYLIST.'"%s /></td>
+                <td class="openid_servers" align="center"><input type="radio" name="servers[%d]" value="'.OPENID_BLACKLIST.'"%s /></td>
+                <td class="openid_servers" align="center"><input type="radio" name="servers[%d]" value="'.OPENID_WHITELIST.'"%s /></td>
+                <td class="openid_servers" align="center"><input type="radio" name="servers[%d]" value="-1" /></td>
+            </tr>
+            ';
+            $checked = ' checked="checked"';
+
+            if ( ($records = get_records('openid_servers')) ) {
+               foreach ($records as $record) {
+                  printf(
+                    $str,
+                    format_string($record->server),
+                    $record->id,
+                    (($record->listtype==OPENID_GREYLIST)?$checked:''),
+                    $record->id,
+                    (($record->listtype==OPENID_BLACKLIST)?$checked:''),
+                    $record->id,
+                    (($record->listtype==OPENID_WHITELIST)?$checked:''),
+                    $record->id
+                  );
+               }
+            }
+
+            ?>
+        </table>
+    </td>
+</tr>
+
